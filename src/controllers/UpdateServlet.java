@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -47,6 +48,8 @@ public class UpdateServlet extends HttpServlet {
 
             String content = request.getParameter("content");
             m.setContent(content);
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+            m.setUpdated_at(currentTime);
             List<String> errors = MessageValidator.validate(m);
             if(errors.size() > 0) {
                 em.close();
